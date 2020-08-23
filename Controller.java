@@ -21,14 +21,13 @@ public class Controller {
 	 * @return This method return count of each HTTP Request.
 	 */
 	@GetMapping("/counter")
-	public void getCounter() {
+	public synchronized void getCounter() {
 		
 		try {
 		if(counter.get() >0) {
-	     n=counter.get();
+	        n=counter.get();
 		List<Number> numObject = numRepo.findByCount(n);
 		if(numObject != null && numObject.size() >0) {
-			//System.out.println("object found to increment .");
 			Number numObj = numObject.get(0);
 			n = counter.incrementAndGet();
 			numObj.setCount(n);
